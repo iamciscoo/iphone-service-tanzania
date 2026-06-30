@@ -22,11 +22,22 @@ import { ServiceExplorer } from "@/components/service-explorer";
 import { BeforeAfter } from "@/components/before-after";
 import { BookingFlow } from "@/components/booking-flow";
 import { HeroImageStack } from "@/components/hero-image-stack";
+import { BookServiceOverlay } from "@/components/book-service-overlay";
+
+function ResponsiveCopy({ desktop, mobile }: { desktop: string; mobile: string }) {
+  return (
+    <>
+      <span className="copy-desktop">{desktop}</span>
+      <span className="copy-mobile">{mobile}</span>
+    </>
+  );
+}
 
 const popularServices = [
   {
     name: "Battery replacement",
     description: "Restore dependable power and battery health.",
+    service: "battery",
     icon: BatteryCharging,
     image: "/images/service-battery.webp",
     imageAlt: "Technician replacing a smartphone battery",
@@ -34,6 +45,7 @@ const popularServices = [
   {
     name: "Camera repair",
     description: "Fix focus, shake, lens, or camera faults.",
+    service: "camera",
     icon: Camera,
     image: "/images/service-camera.webp",
     imageAlt: "Technician positioning a smartphone camera module",
@@ -41,6 +53,7 @@ const popularServices = [
   {
     name: "Water damage",
     description: "Inspect corrosion and recover key functions.",
+    service: "water-damage",
     icon: Drop,
     image: "/images/service-water-damage.webp",
     imageAlt: "Technician treating corrosion inside a smartphone",
@@ -48,6 +61,7 @@ const popularServices = [
   {
     name: "Audio repair",
     description: "Clear calls, speakers, and microphones.",
+    service: "speaker",
     icon: SpeakerHigh,
     image: "/images/service-audio.webp",
     imageAlt: "Technician replacing a smartphone speaker module",
@@ -94,10 +108,18 @@ export default function Home() {
       <main id="top">
         <section className="hero section-shell" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow">iPhone, iPad & Android repair, Dar es Salaam</p>
+            <p className="eyebrow">
+              <ResponsiveCopy
+                desktop="iPhone, iPad & Android Devices Repair, Dar es Salaam"
+                mobile="Phone & tablet repair, Dar es Salaam"
+              />
+            </p>
             <h1 id="hero-title">Repair, perfected.</h1>
             <p className="hero-lede">
-              Precise Apple and Android device repairs, quality parts, clear advice, and warranty-backed service in Mwenge.
+              <ResponsiveCopy
+                desktop="Precise Apple and Android device repairs, quality parts, clear advice, and warranty-backed service in Mwenge."
+                mobile="Quality Apple and Android repairs with clear advice and warranty support."
+              />
             </p>
             <div className="hero-actions">
               <a className="button" href="#book">
@@ -129,6 +151,7 @@ export default function Home() {
 
           <div className="popular-grid">
             <Reveal className="popular-card popular-screen">
+              <BookServiceOverlay label="Screen repair" service="screen-repair" device="iPhone" />
               <div className="popular-image">
                 <Image
                   src="/images/screen-before.webp"
@@ -152,6 +175,7 @@ export default function Home() {
                   key={service.name}
                   delay={0.04 * index}
                 >
+                  <BookServiceOverlay label={service.name} service={service.service} device="iPhone" />
                   <div className="popular-service-image">
                     <Image
                       src={service.image}
@@ -176,7 +200,12 @@ export default function Home() {
         <section className="section section-shell service-section" aria-labelledby="all-services-title">
           <Reveal className="section-heading">
             <h2 id="all-services-title">Find the right repair</h2>
-            <p>Browse iPhone, iPad, Android, Apple Watch, and MacBook services. Start with a diagnostic if you are unsure.</p>
+            <p>
+              <ResponsiveCopy
+                desktop="Browse iPhone, iPad, Android, Apple Watch, and MacBook services. Start with a diagnostic if you are unsure."
+                mobile="Filter by device or search for the repair you need."
+              />
+            </p>
           </Reveal>
           <ServiceExplorer />
         </section>
@@ -216,7 +245,10 @@ export default function Home() {
           <Reveal className="repair-copy">
             <h2 id="repairs">A clean finish you can see</h2>
             <p>
-              Drag the control to compare a damaged screen with its restored finish. Every repair ends with a function check.
+              <ResponsiveCopy
+                desktop="Drag the control to compare a damaged screen with its restored finish. Every repair ends with a function check."
+                mobile="Drag to compare the damaged screen with the repaired finish."
+              />
             </p>
             <div className="repair-checks">
               <span><CheckCircle size={18} weight="fill" /> Display and touch</span>
@@ -233,8 +265,18 @@ export default function Home() {
           <div className="section-shell booking-layout">
             <Reveal className="booking-copy">
               <p className="eyebrow">Book your visit</p>
-              <h2 id="book">Start with the device. We’ll handle the details.</h2>
-              <p>Choose an Apple or Android device, service, and preferred date. The team will confirm model support and parts availability by phone or WhatsApp.</p>
+              <h2 id="book">
+                <ResponsiveCopy
+                  desktop="Start with the device. We’ll handle the details."
+                  mobile="Choose a device. We’ll handle the rest."
+                />
+              </h2>
+              <p>
+                <ResponsiveCopy
+                  desktop="Choose an Apple or Android device, service, and preferred date. The team will confirm model support and parts availability by phone or WhatsApp."
+                  mobile="Pick a repair. We will confirm availability by phone or WhatsApp."
+                />
+              </p>
               <div className="booking-contact-note">
                 <Phone size={20} />
                 <span>
@@ -254,7 +296,10 @@ export default function Home() {
             <div>
               <h2 id="warranty-title">Repair confidence, in writing</h2>
               <p>
-                Eligible services include warranty coverage. We confirm the part, scope, and warranty terms before the repair starts.
+                <ResponsiveCopy
+                  desktop="Eligible services include warranty coverage. We confirm the part, scope, and warranty terms before the repair starts."
+                  mobile="Eligible repairs include confirmed warranty coverage before work starts."
+                />
               </p>
             </div>
             <a href="#faq" className="text-link">Read warranty FAQ <ArrowRight size={17} /></a>
@@ -264,7 +309,12 @@ export default function Home() {
         <section className="section section-shell testimonials" aria-labelledby="testimonials-title">
           <Reveal className="section-heading">
             <h2 id="testimonials-title">Service people remember</h2>
-            <p>Preview testimonial content for the launch layout. Replace with verified customer reviews before publishing.</p>
+            <p>
+              <ResponsiveCopy
+                desktop="Clear explanations and careful work are what customers value most."
+                mobile="Clear advice. Careful work. No surprises."
+              />
+            </p>
           </Reveal>
           <div className="testimonial-grid">
             <Reveal className="testimonial-feature">
@@ -289,7 +339,12 @@ export default function Home() {
           <Reveal className="faq-intro">
             <h2 id="faq">Good questions, answered clearly</h2>
             <p>Still unsure? Send the team a photo or description of the problem on WhatsApp.</p>
-            <a className="button button-secondary" href="https://wa.me/255744710046">
+            <a
+              className="button button-secondary"
+              href="https://wa.me/255744710046"
+              target="_blank"
+              rel="noreferrer"
+            >
               Ask on WhatsApp <WhatsappLogo size={19} weight="fill" />
             </a>
           </Reveal>
@@ -307,20 +362,25 @@ export default function Home() {
           <div className="section-shell contact-layout">
             <Reveal className="contact-copy">
               <h2 id="contact">Visit, call, or message us</h2>
-              <p>Bring your iPhone, iPad, Android phone, Apple Watch, or MacBook for a professional assessment.</p>
+              <p>
+                <ResponsiveCopy
+                  desktop="Bring your iPhone, iPad, Android phone, Apple Watch, or MacBook for a professional assessment."
+                  mobile="Visit us in Mwenge or contact the team for an assessment."
+                />
+              </p>
             </Reveal>
             <div className="contact-actions">
               <a href="https://maps.google.com/?q=Mwenge+Nakiete+Pharmacy+Dar+es+Salaam" target="_blank" rel="noreferrer">
                 <MapPin size={24} />
-                <span><strong>Mwenge</strong><small>Near Nakiete Pharmacy, Dar es Salaam</small></span>
+                <span><strong>Mwenge</strong><small><ResponsiveCopy desktop="Near Nakiete Pharmacy, Dar es Salaam" mobile="Near Nakiete" /></small></span>
               </a>
               <a href="tel:+255744710046" target="_blank" rel="noreferrer">
                 <Phone size={24} />
-                <span><strong>0744 710 046</strong><small>Call for repair support</small></span>
+                <span><strong>0744 710 046</strong><small><ResponsiveCopy desktop="Call for repair support" mobile="Call support" /></small></span>
               </a>
               <a href="https://www.instagram.com/iphone_service_tz/" target="_blank" rel="noreferrer">
                 <InstagramLogo size={24} />
-                <span><strong>@iphone_service_tz</strong><small>See recent repair work</small></span>
+                <span><strong>@iphone_service_tz</strong><small><ResponsiveCopy desktop="See recent repair work" mobile="Repair updates" /></small></span>
               </a>
             </div>
           </div>

@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://iphoneservicetz.co.tz"),
-  title: "iPhone Service TZ | iPhone, iPad & Android Repair in Dar es Salaam",
+  title: "iPhone Service TZ | iPhone, Apple & Android Devices Repair in Dar es Salaam",
   description:
     "Professional iPhone, iPad, Android, Apple Watch, and MacBook repair in Mwenge, Dar es Salaam. Book a diagnostic or repair appointment online.",
   openGraph: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body>{children}</body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

@@ -18,12 +18,33 @@ type BookingStatus = "idle" | "loading" | "success" | "error";
 const devices: Array<{
   name: DeviceType;
   description: string;
+  mobileDescription: string;
   icon: typeof DeviceMobile;
 }> = [
-  { name: "iPhone", description: "All supported iPhone models", icon: DeviceMobile },
-  { name: "iPad", description: "iPad, Air, mini, and Pro", icon: DeviceTablet },
-  { name: "Android", description: "Samsung, Pixel, Tecno, Infinix, Xiaomi, and more", icon: DeviceMobile },
-  { name: "Other Apple", description: "Apple Watch or MacBook", icon: Laptop },
+  {
+    name: "iPhone",
+    description: "All supported iPhone models",
+    mobileDescription: "Supported models",
+    icon: DeviceMobile,
+  },
+  {
+    name: "iPad",
+    description: "iPad, Air, mini, and Pro",
+    mobileDescription: "Air, mini, and Pro",
+    icon: DeviceTablet,
+  },
+  {
+    name: "Android",
+    description: "Samsung, Pixel, Tecno, Infinix, Xiaomi, and more",
+    mobileDescription: "Samsung, Pixel, and more",
+    icon: DeviceMobile,
+  },
+  {
+    name: "Other Apple",
+    description: "Apple Watch or MacBook",
+    mobileDescription: "Watch or MacBook",
+    icon: Laptop,
+  },
 ];
 
 export function BookingFlow() {
@@ -131,7 +152,8 @@ export function BookingFlow() {
                   <Icon size={25} />
                   <span>
                     <strong>{item.name}</strong>
-                    <small>{item.description}</small>
+                    <small className="device-description-desktop">{item.description}</small>
+                    <small className="device-description-mobile">{item.mobileDescription}</small>
                   </span>
                 </button>
               );
@@ -199,7 +221,14 @@ export function BookingFlow() {
             </label>
             <label className="field">
               <span>Preferred date</span>
-              <input name="date" type="date" min={new Date().toISOString().split("T")[0]} required />
+              <span className="date-input-wrap" data-placeholder="Choose a date">
+                <input
+                  name="date"
+                  type="date"
+                  min={new Date().toISOString().split("T")[0]}
+                  required
+                />
+              </span>
             </label>
             <label className="field">
               <span>Device model</span>

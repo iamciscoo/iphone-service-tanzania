@@ -3,23 +3,10 @@
 import { useMemo, useRef, useState } from "react";
 import { ArrowRight, CheckCircle, MagnifyingGlass } from "@phosphor-icons/react";
 import { repairServices, type DeviceType } from "@/data/services";
+import { beginBooking } from "@/lib/booking-navigation";
 
 const filters: Array<"All" | DeviceType> = ["All", "iPhone", "iPad", "Android", "Other Apple"];
 const mobilePageSize = 6;
-
-function beginBooking(service: string, device?: DeviceType) {
-  window.dispatchEvent(
-    new CustomEvent("repair:book", { detail: { service, device } }),
-  );
-  const heading = document.getElementById("book");
-  const section = heading?.closest("section");
-  const desktop = window.matchMedia("(min-width: 821px)").matches;
-  (desktop ? section : heading)?.scrollIntoView({
-    behavior: "smooth",
-    block: desktop ? "center" : "start",
-  });
-  window.history.replaceState(null, "", "#book");
-}
 
 export function ServiceExplorer() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
