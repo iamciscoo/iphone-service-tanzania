@@ -78,6 +78,7 @@ export function BeforeAfter() {
         Move to compare the device before and after repair
       </label>
       <input
+        suppressHydrationWarning
         ref={rangeRef}
         id="repair-comparison"
         className="comparison-range"

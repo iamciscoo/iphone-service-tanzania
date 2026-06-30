@@ -88,6 +88,7 @@ export function ServiceCombobox({ services, value, onChange }: ServiceComboboxPr
       <div className="service-combobox-input" data-open={open}>
         <MagnifyingGlass size={19} aria-hidden="true" />
         <input
+          suppressHydrationWarning
           id="repair-service"
           role="combobox"
           aria-autocomplete="list"

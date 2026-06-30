@@ -23,6 +23,7 @@ import { BeforeAfter } from "@/components/before-after";
 import { BookingFlow } from "@/components/booking-flow";
 import { HeroImageStack } from "@/components/hero-image-stack";
 import { BookServiceOverlay } from "@/components/book-service-overlay";
+import { ShareBookingLink } from "@/components/share-booking-link";
 
 function ResponsiveCopy({ desktop, mobile }: { desktop: string; mobile: string }) {
   return (
@@ -161,9 +162,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section section-shell" aria-labelledby="services">
+        <section className="section section-shell popular-services-section" aria-labelledby="popular-services-title">
           <Reveal className="section-heading">
-            <h2 id="services">The repairs customers need most</h2>
+            <h2 id="popular-services-title">The repairs customers need most</h2>
             <p>Careful work, clear options, and testing before your device leaves the bench.</p>
           </Reveal>
 
@@ -215,7 +216,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section section-shell service-section" aria-labelledby="all-services-title">
+        <section className="section section-shell service-section" id="services" aria-labelledby="all-services-title">
           <Reveal className="section-heading">
             <h2 id="all-services-title">Find the right repair</h2>
             <p>
@@ -274,32 +275,37 @@ export default function Home() {
               <span><CheckCircle size={18} weight="fill" /> Charging and audio</span>
             </div>
           </Reveal>
-          <Reveal className="repair-visual" delay={0.08}>
+          <div className="repair-visual">
             <BeforeAfter />
-          </Reveal>
+          </div>
         </section>
 
-        <section className="section booking-section" aria-labelledby="book">
+        <section className="section booking-section" id="book" aria-labelledby="book-title">
           <div className="section-shell booking-layout">
             <Reveal className="booking-copy">
               <p className="eyebrow">Book your visit</p>
-              <h2 id="book">
+              <h2 id="book-title">
                 <ResponsiveCopy
                   desktop="Start with the device. We’ll handle the details."
-                  mobile="Choose a device. We’ll handle the rest."
+                  mobile="Start your repair."
                 />
               </h2>
               <p>
                 <ResponsiveCopy
                   desktop="Choose an Apple or Android device, service, and preferred date. The team will confirm model support and parts availability by phone or WhatsApp."
-                  mobile="Pick a repair. We will confirm availability by phone or WhatsApp."
+                  mobile="Pick a device and repair. We’ll confirm by phone or WhatsApp."
                 />
               </p>
-              <div className="booking-contact-note">
-                <Phone size={20} />
-                <span>
-                  Prefer to call? <a href="tel:+255744710046">0744 710 046</a>
-                </span>
+              <div className="booking-contact-row">
+                <div className="booking-contact-note">
+                  <Phone size={20} />
+                  <span>
+                    <span className="copy-desktop">Prefer to call? </span>
+                    <span className="copy-mobile">Call </span>
+                    <a href="tel:+255744710046">0744 710 046</a>
+                  </span>
+                </div>
+                <ShareBookingLink />
               </div>
             </Reveal>
             <Reveal delay={0.06}>

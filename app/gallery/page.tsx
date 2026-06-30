@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CaretDown, CheckCircle, PlayCircle } from "@phosphor-icons/react/dist/ssr";
 import { Navigation } from "@/components/navigation";
+import { GalleryVideoCarousel } from "@/components/gallery-video";
 
 export const metadata: Metadata = {
   title: "Repair Gallery | iPhone Service TZ",
@@ -66,7 +67,7 @@ export default function GalleryPage() {
   return <>
     <Navigation />
     <main className="gallery-page">
-      <section className="gallery-video-section gallery-video-first"><div className="section-shell"><div className="gallery-video-header"><div className="gallery-heading"><p className="eyebrow">Inside the studio</p><h1>Short clips from the bench</h1><p><PlayCircle size={22} /> Tap play for a closer look. Clips load only when requested.</p></div><Link className="button gallery-video-cta" href="/#book">Book repair <ArrowRight size={18} /></Link></div><div className="gallery-video-grid">{clips.map(([src,title,poster])=><article key={src}><video controls controlsList="nodownload noremoteplayback" playsInline preload="none" poster={`/gallery/images/${poster}`}><source src={`/gallery/videos/${src}`} type="video/mp4" /></video><h3>{title}</h3></article>)}</div></div></section>
+      <section className="gallery-video-section gallery-video-first"><div className="section-shell"><div className="gallery-video-header"><div className="gallery-heading"><p className="eyebrow">Inside the studio</p><h1>Short clips from the bench</h1><p><PlayCircle size={22} /> Tap play for a closer look. Clips load only when requested.</p></div><Link className="button gallery-video-cta" href="/#book">Book repair <ArrowRight size={18} /></Link></div><GalleryVideoCarousel clips={clips} /></div></section>
 
       <section className="gallery-section section-shell"><div className="gallery-heading"><h2>From repair to ready</h2><p>A concise look at the damage, careful bench work, and finished result.</p></div><div className="gallery-featured-grid">{featuredPhotos.map(([src,alt])=><figure className="gallery-photo" key={src}><Image src={`/gallery/images/${src}`} alt={alt} fill loading="lazy" sizes="(max-width: 600px) 50vw, 24vw" /></figure>)}</div><details className="gallery-more"><summary>View {morePhotos.length} more photos <CaretDown size={17} weight="bold" /></summary><div className="gallery-more-grid">{morePhotos.map(([src,alt])=><figure className="gallery-photo" key={src}><Image src={`/gallery/images/${src}`} alt={alt} fill loading="lazy" sizes="(max-width: 600px) 50vw, 25vw" /></figure>)}</div></details></section>
 

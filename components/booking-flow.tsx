@@ -5,8 +5,10 @@ import {
   AndroidLogo,
   ArrowLeft,
   ArrowRight,
+  CalendarBlank,
   Check,
   CheckCircle,
+  Clock,
   DeviceMobile,
   DeviceTablet,
   Laptop,
@@ -115,6 +117,13 @@ export function BookingFlow() {
         </span>
         <h3>Request received</h3>
         <p>We will confirm your repair time by phone or WhatsApp.</p>
+        <div className="booking-success-note">
+          <Clock size={22} aria-hidden="true" />
+          <span>
+            <strong>What happens next</strong>
+            We will review the repair, parts, and preferred date before contacting you.
+          </span>
+        </div>
         <button type="button" className="button button-secondary" onClick={restart}>
           Book another repair
         </button>
@@ -208,11 +217,12 @@ export function BookingFlow() {
           <div className="form-grid">
             <label className="field">
               <span>Full name</span>
-              <input name="name" autoComplete="name" required placeholder="Your name" />
+              <input suppressHydrationWarning name="name" autoComplete="name" required placeholder="Your name" />
             </label>
             <label className="field">
               <span>Phone or WhatsApp</span>
               <input
+                suppressHydrationWarning
                 name="phone"
                 type="tel"
                 autoComplete="tel"
@@ -224,6 +234,7 @@ export function BookingFlow() {
               <span>Preferred date</span>
               <span className="date-input-wrap" data-placeholder="Choose a date">
                 <input
+                  suppressHydrationWarning
                   name="date"
                   type="date"
                   inputMode="none"
@@ -240,16 +251,17 @@ export function BookingFlow() {
                   onDrop={(event) => event.preventDefault()}
                   required
                 />
+                <CalendarBlank className="date-input-icon" size={20} aria-hidden="true" />
               </span>
             </label>
             <label className="field">
               <span>Device model</span>
-              <input name="model" required placeholder="For example, iPhone 15 Pro or Galaxy S24" />
+              <input suppressHydrationWarning name="model" required placeholder="For example, iPhone 15 Pro or Galaxy S24" />
             </label>
           </div>
           <label className="field">
             <span>What happened? (optional)</span>
-            <textarea name="notes" rows={3} placeholder="Share any symptoms or damage" />
+            <textarea suppressHydrationWarning name="notes" rows={3} placeholder="Share any symptoms or damage" />
           </label>
           {status === "error" && <p className="form-error">{message}</p>}
           <button className="button booking-submit" type="submit" disabled={status === "loading"}>

@@ -15,6 +15,7 @@ export function ServiceExplorer() {
   const [selectedSlug, setSelectedSlug] = useState("screen-repair");
   const [activePage, setActivePage] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const detailRef = useRef<HTMLElement>(null);
 
   const filtered = useMemo(() => {
     const search = query.trim().toLowerCase();
@@ -54,6 +55,16 @@ export function ServiceExplorer() {
     carousel.scrollTo({ left: carousel.clientWidth * index, behavior: "smooth" });
   }
 
+  function selectService(slug: string) {
+    setSelectedSlug(slug);
+
+    if (!window.matchMedia("(max-width: 600px)").matches) return;
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    window.requestAnimationFrame(() => {
+      detailRef.current?.scrollIntoView({ behavior, block: "start" });
+    });
+  }
+
   return (
     <div className="service-browser">
       <div className="service-controls">
@@ -76,6 +87,7 @@ export function ServiceExplorer() {
           <span className="sr-only">Search services</span>
           <MagnifyingGlass size={18} aria-hidden="true" />
           <input
+            suppressHydrationWarning
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
@@ -110,7 +122,7 @@ export function ServiceExplorer() {
                     data-active={selected.slug === service.slug}
                     key={service.slug}
                     type="button"
-                    onClick={() => setSelectedSlug(service.slug)}
+                    onClick={() => selectService(service.slug)}
                   >
                     <span>{service.name}</span>
                     <ArrowRight size={16} aria-hidden="true" />
@@ -142,7 +154,12 @@ export function ServiceExplorer() {
           )}
         </div>
 
-        <aside className="service-detail" aria-label={`${selected.name} details`}>
+        <aside
+          className="service-detail"
+          aria-label={`${selected.name} details`}
+          aria-live="polite"
+          ref={detailRef}
+        >
           <div className="service-detail-heading">
             <CheckCircle size={28} weight="fill" aria-hidden="true" />
             <span>Repair overview</span>
