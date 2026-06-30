@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, CheckCircle, MagnifyingGlass } from "@phosphor-icons/react";
 import { repairServices, type DeviceType } from "@/data/services";
 import { beginBooking } from "@/lib/booking-navigation";
@@ -173,13 +174,16 @@ export function ServiceExplorer() {
           </div>
           <div className="service-detail-action">
             <p>Findings, repair options, and warranty terms are confirmed before work begins.</p>
-            <button
-              className="button button-dark"
-              type="button"
-              onClick={() => beginBooking(selected.slug, selected.devices[0])}
-            >
-              Book this repair
-            </button>
+            <div className="service-detail-buttons">
+              <button
+                className="button button-dark"
+                type="button"
+                onClick={() => beginBooking(selected.slug, selected.devices[0])}
+              >
+                Book this repair
+              </button>
+              <Link className="service-gallery-link" href="/gallery">View repair gallery</Link>
+            </div>
           </div>
         </aside>
       </div>

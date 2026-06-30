@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
+  AndroidLogo,
   ArrowLeft,
   ArrowRight,
   Check,
@@ -37,7 +38,7 @@ const devices: Array<{
     name: "Android",
     description: "Samsung, Pixel, Tecno, Infinix, Xiaomi, and more",
     mobileDescription: "Samsung, Pixel, and more",
-    icon: DeviceMobile,
+    icon: AndroidLogo,
   },
   {
     name: "Other Apple",
@@ -225,7 +226,18 @@ export function BookingFlow() {
                 <input
                   name="date"
                   type="date"
+                  inputMode="none"
                   min={new Date().toISOString().split("T")[0]}
+                  onClick={(event) => event.currentTarget.showPicker?.()}
+                  onKeyDown={(event) => {
+                    if (event.key === "Tab" || event.key === "Escape") return;
+                    event.preventDefault();
+                    if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
+                      event.currentTarget.showPicker?.();
+                    }
+                  }}
+                  onPaste={(event) => event.preventDefault()}
+                  onDrop={(event) => event.preventDefault()}
                   required
                 />
               </span>

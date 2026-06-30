@@ -143,6 +143,24 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section section-shell gallery-promo" aria-labelledby="gallery-promo-title">
+          <Reveal className="gallery-promo-copy">
+            <p className="eyebrow">Repair gallery</p>
+            <h2 id="gallery-promo-title">See the work up close</h2>
+            <p>Explore real repair photos, short bench videos, and finished devices.</p>
+            <a className="button button-secondary" href="/gallery">Open gallery <ArrowRight size={18} /></a>
+          </Reveal>
+          <div className="gallery-promo-media">
+            {[
+              ["/gallery/images/iphone-back-glass.webp", "Restored iPhone back glass"],
+              ["/gallery/images/apple-watch-ready.webp", "Apple Watch after service"],
+              ["/gallery/images/ipad-restored.webp", "Restored iPad display"],
+            ].map(([src, alt]) => (
+              <div key={src}><Image src={src} alt={alt} fill sizes="(max-width: 600px) 31vw, 18vw" /></div>
+            ))}
+          </div>
+        </section>
+
         <section className="section section-shell" aria-labelledby="services">
           <Reveal className="section-heading">
             <h2 id="services">The repairs customers need most</h2>
@@ -380,7 +398,7 @@ export default function Home() {
               </a>
               <a href="https://www.instagram.com/iphone_service_tz/" target="_blank" rel="noreferrer">
                 <InstagramLogo size={24} />
-                <span><strong>@iphone_service_tz</strong><small><ResponsiveCopy desktop="See recent repair work" mobile="Repair updates" /></small></span>
+                <span><strong>@iphone_<wbr />service_tz</strong><small><ResponsiveCopy desktop="See recent repair work" mobile="Repair updates" /></small></span>
               </a>
             </div>
           </div>
@@ -398,6 +416,7 @@ export default function Home() {
           <p>Professional Apple and Android device repair in Dar es Salaam.</p>
           <div className="footer-links">
             <a href="#services">Services</a>
+            <a href="/gallery">Gallery</a>
             <a href="#book">Book repair</a>
             <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
