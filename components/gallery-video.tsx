@@ -11,7 +11,7 @@ type GalleryVideoProps = {
   title: string;
 };
 
-export function GalleryVideo({ poster, src, title }: GalleryVideoProps) {
+function GalleryVideo({ poster, src, title }: GalleryVideoProps) {
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
 

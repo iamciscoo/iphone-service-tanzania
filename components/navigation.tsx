@@ -8,51 +8,75 @@ import { LiquidGlassFrame } from "@/components/liquid-glass-frame";
 
 const links = [
   { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
   { label: "Repairs", href: "#repairs" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
+const centeredAnchors = new Set(["#repairs", "#testimonials", "#book"]);
+
+function resolveHref(href: string, pathname: string) {
+  return href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
+}
+
+function homeHref(pathname: string) {
+  return pathname === "/" ? "#top" : "/";
+}
+
+function bookingHref(pathname: string) {
+  return pathname === "/" ? "#book" : "/#book";
+}
+
+function menuLabel(open: boolean) {
+  return open ? "Close menu" : "Open menu";
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return open ? <X size={20} /> : <List size={22} />;
+}
+
+function pageAnchorFromEvent(event: MouseEvent) {
+  const target = event.target;
+  const shouldIgnore = [
+    event.defaultPrevented,
+    event.button !== 0,
+    event.metaKey,
+    event.ctrlKey,
+    event.shiftKey,
+    event.altKey,
+    !(target instanceof Element),
+  ].some(Boolean);
+
+  return shouldIgnore ? null : (target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+}
+
+function scrollToPageAnchor(href: string, behavior: ScrollBehavior = "smooth") {
+  const heading = document.querySelector(href);
+  const section = heading?.closest("section");
+  if (!heading || !section) return false;
+
+  const desktop = window.matchMedia("(min-width: 821px)").matches;
+  const destination = desktop
+    ? { element: section, block: "center" as ScrollLogicalPosition }
+    : { element: heading, block: "start" as ScrollLogicalPosition };
+  destination.element.scrollIntoView({ behavior, block: destination.block });
+  return true;
+}
+
 export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const resolveHref = (href: string) => href.startsWith("#") && pathname !== "/" ? `/${href}` : href;
 
   useEffect(() => {
-    function scrollToPageAnchor(href: string, behavior: ScrollBehavior = "smooth") {
-      const heading = document.querySelector(href);
-      const section = heading?.closest("section");
-      if (!heading || !section) return false;
-
-      const desktop = window.matchMedia("(min-width: 821px)").matches;
-      (desktop ? section : heading).scrollIntoView({
-        behavior,
-        block: desktop ? "center" : "start",
-      });
-      return true;
-    }
-
     function handlePageAnchor(event: MouseEvent) {
-      if (
-        event.defaultPrevented ||
-        event.button !== 0 ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey ||
-        !(event.target instanceof Element)
-      ) {
-        return;
-      }
-
-      const anchor = event.target.closest<HTMLAnchorElement>('a[href^="#"]');
+      const anchor = pageAnchorFromEvent(event);
       const href = anchor?.getAttribute("href");
       if (!href) return;
 
       setOpen(false);
-      if (!["#process", "#repairs", "#book"].includes(href)) return;
+      if (!centeredAnchors.has(href)) return;
 
       event.preventDefault();
       if (!scrollToPageAnchor(href)) return;
@@ -60,7 +84,7 @@ export function Navigation() {
     }
 
     document.addEventListener("click", handlePageAnchor);
-    const frame = pathname === "/" && ["#process", "#repairs", "#book"].includes(window.location.hash)
+    const frame = pathname === "/" && centeredAnchors.has(window.location.hash)
       ? window.requestAnimationFrame(() => scrollToPageAnchor(window.location.hash, "auto"))
       : 0;
     return () => {
@@ -74,7 +98,7 @@ export function Navigation() {
       <div className="nav-glass-wrap">
         <LiquidGlassFrame className="glass-nav">
           <nav className="nav-shell" aria-label="Primary navigation">
-          <a className="brand" href={pathname === "/" ? "#top" : "/"} aria-label="iPhone Service Tanzania home">
+          <a className="brand" href={homeHref(pathname)} aria-label="iPhone Service Tanzania home">
             <span className="brand-mark" aria-hidden="true">
               <Image src="/brand-settings.webp" alt="" width={36} height={36} priority />
             </span>
@@ -85,13 +109,13 @@ export function Navigation() {
 
           <div className="desktop-links">
             {links.map((link) => (
-              <a key={link.href} href={resolveHref(link.href)}>
+              <a key={link.href} href={resolveHref(link.href, pathname)}>
                 {link.label}
               </a>
             ))}
           </div>
 
-          <a className="button button-small nav-cta" href={pathname === "/" ? "#book" : "/#book"}>
+          <a className="button button-small nav-cta" href={bookingHref(pathname)}>
             Book repair
           </a>
 
@@ -100,10 +124,10 @@ export function Navigation() {
             type="button"
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={menuLabel(open)}
             onClick={() => setOpen((value) => !value)}
           >
-            {open ? <X size={20} /> : <List size={22} />}
+            <MenuIcon open={open} />
           </button>
           </nav>
         </LiquidGlassFrame>
@@ -116,7 +140,7 @@ export function Navigation() {
         aria-hidden={!open}
       >
         {links.map((link) => (
-          <a key={link.href} href={resolveHref(link.href)}>
+          <a key={link.href} href={resolveHref(link.href, pathname)}>
             {link.label}
           </a>
         ))}

@@ -16,10 +16,15 @@ const nextConfig: NextConfig = {
       { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
     ];
 
-    return ["videos", "images", "posters"].map((directory) => ({
+    const galleryHeaders = ["videos", "images", "posters"].map((directory) => ({
       source: `/gallery/${directory}/:path*`,
       headers: immutableMediaCache,
     }));
+
+    return [
+      ...galleryHeaders,
+      { source: "/testimonials/:path*", headers: immutableMediaCache },
+    ];
   },
 };
 

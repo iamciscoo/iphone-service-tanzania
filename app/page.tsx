@@ -155,7 +155,7 @@ export default function Home() {
             {[
               ["/gallery/images/iphone-back-glass.webp", "Restored iPhone back glass"],
               ["/gallery/images/apple-watch-ready.webp", "Apple Watch after service"],
-              ["/gallery/images/ipad-restored.webp", "Restored iPad display"],
+              ["/gallery/images/repair-ipad-after-2026.webp", "Restored iPad display"],
             ].map(([src, alt]) => (
               <div key={src}><Image src={src} alt={alt} fill sizes="(max-width: 600px) 31vw, 18vw" /></div>
             ))}
@@ -330,7 +330,7 @@ export default function Home() {
           </Reveal>
         </section>
 
-        <section className="section section-shell testimonials" aria-labelledby="testimonials-title">
+        <section className="section section-shell testimonials" id="testimonials" aria-labelledby="testimonials-title">
           <Reveal className="section-heading">
             <h2 id="testimonials-title">Service people remember</h2>
             <p>
@@ -340,22 +340,50 @@ export default function Home() {
               />
             </p>
           </Reveal>
-          <div className="testimonial-grid">
-            <Reveal className="testimonial-feature">
-              <Quotes size={32} weight="fill" />
+          <div className="testimonial-media-grid">
+            <Reveal className="testimonial-video-card">
+              <div className="testimonial-video-frame">
+                <video
+                  aria-label="Customer sharing her repair experience at iPhone Service TZ"
+                  controls
+                  controlsList="nodownload noremoteplayback"
+                  playsInline
+                  preload="none"
+                  poster="/testimonials/customer-testimonial-poster-2026.webp"
+                >
+                  <source src="/testimonials/customer-testimonial-v2-2026.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div className="testimonial-video-copy">
+                <Quotes size={28} weight="fill" aria-hidden="true" />
+                <div><h3>A customer, in her own words</h3><p>Press play to hear the full experience. Sound is available in the player controls.</p></div>
+              </div>
+            </Reveal>
+            <div className="testimonial-photo-stack">
+              <Reveal className="testimonial-photo" delay={0.06}>
+                <Image src="/testimonials/customer-result-2-2026.webp" alt="Happy customer holding her repaired phone in the service shop" fill loading="lazy" sizes="(max-width: 720px) 48vw, 28vw" />
+                <span>Back in their hands</span>
+              </Reveal>
+              <Reveal className="testimonial-photo" delay={0.1}>
+                <Image src="/testimonials/customer-result-3-2026.webp" alt="Smiling customer showing her working iPhone after service" fill loading="lazy" sizes="(max-width: 720px) 48vw, 28vw" />
+                <span>Ready to use again</span>
+              </Reveal>
+            </div>
+          </div>
+          <div className="testimonial-quote-grid" aria-label="Customer feedback">
+            <Reveal className="testimonial-quote testimonial-quote-feature" delay={0.04}>
+              <Quotes size={28} weight="fill" aria-hidden="true" />
               <blockquote>“They explained the fault clearly and my phone came back feeling new.”</blockquote>
               <p>Asha M. <span>Screen replacement</span></p>
             </Reveal>
-            <div className="testimonial-stack">
-              <Reveal className="testimonial-small" delay={0.06}>
-                <blockquote>“Fast communication, careful work, and no surprises on collection.”</blockquote>
-                <p>Kelvin J. <span>Battery service</span></p>
-              </Reveal>
-              <Reveal className="testimonial-small" delay={0.1}>
-                <blockquote>“The diagnostic helped me understand the best option before paying.”</blockquote>
-                <p>Neema R. <span>iPad diagnostic</span></p>
-              </Reveal>
-            </div>
+            <Reveal className="testimonial-quote" delay={0.08}>
+              <blockquote>“Fast communication, careful work, and no surprises on collection.”</blockquote>
+              <p>Kelvin J. <span>Battery service</span></p>
+            </Reveal>
+            <Reveal className="testimonial-quote" delay={0.12}>
+              <blockquote>“The diagnostic helped me understand the best option before paying.”</blockquote>
+              <p>Neema R. <span>iPad diagnostic</span></p>
+            </Reveal>
           </div>
         </section>
 
